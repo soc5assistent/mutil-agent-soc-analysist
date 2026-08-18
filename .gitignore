@@ -1,0 +1,51 @@
+# Datasets (Do NOT commit raw datasets to Git)
+datasets/*
+!datasets/README.md
+*.csv
+*.pcap
+*.pcapng
+*.zip
+*.tar.gz
+*.gz
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment & Credentials
+.env
+.env.*
+*.pem
+*.key
+
+# Machine Learning Artifacts & Serialized Models
+models/
+*.joblib
+*.pkl
+*.h5
+*.onnx
+
+# IDE & Editor Directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local Audit Logs & Temporary Scratch Files
+*.log
+scratch/
+.system_generated/
+inspect_csv.py
+raw_cic2023.py
+run_schema_audit.py
+ciciot2023_file_inventory.csv
