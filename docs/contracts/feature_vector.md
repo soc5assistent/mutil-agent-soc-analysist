@@ -1,6 +1,6 @@
 # Contract Specification: FeatureVector
 
-> **Contract ID**: `FEATURE_VECTOR_V1`  
+> **Contract ID**: `FEATURE_VECTOR_V2`  
 > **Producer**: Agent 3 (Feature Engineering Engine)  
 > **Consumer**: Agent 4 (Anomaly Detection Engine)  
 > **Status**: Frozen Architecture Contract
@@ -22,24 +22,45 @@ The `FeatureVector` payload represents an immutable, high-dimensional numerical 
 | `timestamp_utc` | `str` (ISO8601) | Required | Timestamp | UTC timestamp of feature extraction completion. | Agent 3 Runtime | Agent 4 |
 | `features` | `list[float]` | Required | Numerical Data | Dense array of preprocessed, scaled 64-bit float values. Guaranteed non-NaN, non-Inf. | Feature Pipeline | Agent 4 ML Model |
 | `feature_names` | `list[str]` | Required | Metadata | Ordered schema list of feature names corresponding to vector index positions. | Scaler Registry | Agent 4 Feature Audit |
-| `scaling_version` | `str` | Required | Metadata | Unique identifier/hash of fitted scaler pipeline artifacts. | Scaler Artifact | Agent 4 Verification |
+| `feature_pipeline_version` | `str` | Required | Versioning | Hash/tag of feature extraction logic, feature selection, and column ordering definitions. | Pipeline Artifact | Agent 4 Model Compatibility |
+| `scaling_version` | `str` | Required | Versioning | Unique hash/tag of fitted scaler pipeline artifacts (e.g. RobustScaler params). | Scaler Artifact | Agent 4 Verification |
+| `model_compatibility_tag` | `str` | Required | Compatibility | Compatibility identifier declaring target model family (e.g. `IFOREST_27D_V1`). | Agent 3 Registry | Agent 4 Ingest Check |
 | `is_normalized` | `bool` | Required | Quality Flag | Flag confirming feature array has undergone standard/robust scaling transformation. | Preprocessing Pipeline | Agent 4 Input Validation |
 
 ---
 
-## 3. Invariants & Data Sanitization Rules
+## 3. Pipeline & Scaling Versioning Rationale
+
+`FeatureVector` strictly separates `feature_pipeline_version` from `scaling_version`:
+
+1. **`feature_pipeline_version`**:
+   - Captures feature selection logic, formula definitions (e.g. rate calculations), and strict `feature_names` index ordering.
+   - Prevents index misalignment where model feature #3 expects `flow_rate` but receives `header_length`.
+2. **`scaling_version`**:
+   - Captures specific fitted parameter weights (medians, interquartile ranges, min/max bounds) derived from training split fitting.
+   - Prevents applying scalers fitted on dataset A to events extracted under pipeline version B.
+
+Agent 4 MUST verify five compatibility elements prior to model inference:
+1. `feature_names` identity and order
+2. `feature_ordering` exact sequence match
+3. `feature_pipeline_version` match
+4. `scaling_version` match
+5. `model_compatibility_tag` match
+
+---
+
+## 4. Invariants & Data Sanitization Rules
 
 1. **Numeric Integrity Guarantee**:
    - `features` array MUST NOT contain `NaN`, `Null`, `None`, or `Infinity` (`Inf`/`-Inf`). Any missing value MUST be imputed during Agent 3 transformation.
 2. **Dimension Consistency**:
    - The length of `features` MUST exactly match the length of `feature_names` and match the expected input dimension of Agent 4's calibrated model.
 3. **Exclusion of Provenance & Raw Metadata**:
-   - Provenance fields (`source_type`, `sensor_id`, `collector_version`, `raw_payload_b64`) MUST NOT be directly converted into ML numerical features.
-   - Text strings and raw IPs must be properly encoded or excluded to prevent data leakage.
+   - Metadata and ground-truth fields (`dataset_name`, `category`, `attack_label`, `source_file`, `folder_name`, `provenance`, `sensor_id`, `collector_version`, `raw_payload_b64`) **MUST NOT** be converted into ML numerical features.
 
 ---
 
-## 4. Agent 3 Non-Ownership Declarations
+## 5. Agent 3 Non-Ownership Declarations
 
 Agent 3 explicitly DOES NOT own:
 - Ingestion of raw network packet streams or OS kernel events (owned by Agent 1).
