@@ -1,0 +1,682 @@
+{
+  "metadata": {
+    "audit_target": "d:\\b tech\\feature_eng+\\datasets\\cic_iot_2023\\raw",
+    "total_csv_files": 309,
+    "total_dataset_rows": 46776700,
+    "total_dataset_bytes": 8943771319,
+    "total_distinct_schemas": 1,
+    "primary_schema_column_count": 39
+  },
+  "phase1_schema": {
+    "identical_column_names_across_all": true,
+    "identical_column_order_across_all": true,
+    "duplicate_column_names": {},
+    "empty_unnamed_columns": {},
+    "whitespace_inconsistencies": {},
+    "ordered_columns": [
+      "Header_Length",
+      "Protocol Type",
+      "Time_To_Live",
+      "Rate",
+      "fin_flag_number",
+      "syn_flag_number",
+      "rst_flag_number",
+      "psh_flag_number",
+      "ack_flag_number",
+      "ece_flag_number",
+      "cwr_flag_number",
+      "ack_count",
+      "syn_count",
+      "fin_count",
+      "rst_count",
+      "HTTP",
+      "HTTPS",
+      "DNS",
+      "Telnet",
+      "SMTP",
+      "SSH",
+      "IRC",
+      "TCP",
+      "UDP",
+      "DHCP",
+      "ARP",
+      "ICMP",
+      "IGMP",
+      "IPv",
+      "LLC",
+      "Tot sum",
+      "Min",
+      "Max",
+      "AVG",
+      "Std",
+      "Tot size",
+      "IAT",
+      "Number",
+      "Variance"
+    ]
+  },
+  "phase2_categories": {
+    "Backdoor_Malware": {
+      "file_count": 1,
+      "total_rows": 3218,
+      "size_bytes": 664577
+    },
+    "Benign_Final": {
+      "file_count": 4,
+      "total_rows": 1098191,
+      "size_bytes": 227413899
+    },
+    "BrowserHijacking": {
+      "file_count": 1,
+      "total_rows": 5859,
+      "size_bytes": 1207500
+    },
+    "CommandInjection": {
+      "file_count": 1,
+      "total_rows": 5409,
+      "size_bytes": 1107913
+    },
+    "DDoS-ACK_Fragmentation": {
+      "file_count": 13,
+      "total_rows": 285075,
+      "size_bytes": 62777845
+    },
+    "DDoS-HTTP_Flood": {
+      "file_count": 1,
+      "total_rows": 28790,
+      "size_bytes": 6449785
+    },
+    "DDoS-ICMP_Flood": {
+      "file_count": 27,
+      "total_rows": 7200501,
+      "size_bytes": 1326268516
+    },
+    "DDoS-ICMP_Fragmentation": {
+      "file_count": 20,
+      "total_rows": 452490,
+      "size_bytes": 99715479
+    },
+    "DDoS-PSHACK_FLOOD": {
+      "file_count": 16,
+      "total_rows": 4094772,
+      "size_bytes": 769557258
+    },
+    "DDoS-RSTFINFLOOD": {
+      "file_count": 16,
+      "total_rows": 4045279,
+      "size_bytes": 767001444
+    },
+    "DDoS-SYN_Flood": {
+      "file_count": 16,
+      "total_rows": 4059179,
+      "size_bytes": 774305520
+    },
+    "DDoS-SlowLoris": {
+      "file_count": 1,
+      "total_rows": 23426,
+      "size_bytes": 5224322
+    },
+    "DDoS-SynonymousIP_Flood": {
+      "file_count": 14,
+      "total_rows": 3598133,
+      "size_bytes": 674634940
+    },
+    "DDoS-TCP_Flood": {
+      "file_count": 18,
+      "total_rows": 4497649,
+      "size_bytes": 843836113
+    },
+    "DDoS-UDP_Flood": {
+      "file_count": 21,
+      "total_rows": 5412231,
+      "size_bytes": 1024991540
+    },
+    "DDoS-UDP_Fragmentation": {
+      "file_count": 13,
+      "total_rows": 286925,
+      "size_bytes": 62983244
+    },
+    "DNS_Spoofing": {
+      "file_count": 1,
+      "total_rows": 178898,
+      "size_bytes": 36833637
+    },
+    "DictionaryBruteForce": {
+      "file_count": 1,
+      "total_rows": 13064,
+      "size_bytes": 2704325
+    },
+    "DoS-HTTP_Flood": {
+      "file_count": 2,
+      "total_rows": 71861,
+      "size_bytes": 15923730
+    },
+    "DoS-SYN_Flood": {
+      "file_count": 8,
+      "total_rows": 2028836,
+      "size_bytes": 390605879
+    },
+    "DoS-TCP_Flood": {
+      "file_count": 11,
+      "total_rows": 2671430,
+      "size_bytes": 505347270
+    },
+    "DoS-UDP_Flood": {
+      "file_count": 17,
+      "total_rows": 3072993,
+      "size_bytes": 605399106
+    },
+    "MITM-ArpSpoofing": {
+      "file_count": 2,
+      "total_rows": 307560,
+      "size_bytes": 62905849
+    },
+    "Mirai-greeth_flood": {
+      "file_count": 29,
+      "total_rows": 991834,
+      "size_bytes": 200654394
+    },
+    "Mirai-greip_flood": {
+      "file_count": 22,
+      "total_rows": 751646,
+      "size_bytes": 153659062
+    },
+    "Mirai-udpplain": {
+      "file_count": 25,
+      "total_rows": 890574,
+      "size_bytes": 179098572
+    },
+    "Recon-HostDiscovery": {
+      "file_count": 1,
+      "total_rows": 134378,
+      "size_bytes": 26360058
+    },
+    "Recon-OSScan": {
+      "file_count": 1,
+      "total_rows": 98259,
+      "size_bytes": 19880307
+    },
+    "Recon-PingSweep": {
+      "file_count": 1,
+      "total_rows": 2262,
+      "size_bytes": 466700
+    },
+    "Recon-PortScan": {
+      "file_count": 1,
+      "total_rows": 82284,
+      "size_bytes": 16412654
+    },
+    "SqlInjection": {
+      "file_count": 1,
+      "total_rows": 5245,
+      "size_bytes": 1087316
+    },
+    "Uploading_Attack": {
+      "file_count": 1,
+      "total_rows": 1252,
+      "size_bytes": 260216
+    },
+    "VulnerabilityScan": {
+      "file_count": 1,
+      "total_rows": 373351,
+      "size_bytes": 77235466
+    },
+    "XSS": {
+      "file_count": 1,
+      "total_rows": 3846,
+      "size_bytes": 796883
+    }
+  },
+  "phase4_dtypes": {
+    "column_data_types": {
+      "Header_Length": "float64",
+      "Protocol Type": "int64",
+      "Time_To_Live": "float64",
+      "Rate": "float64",
+      "fin_flag_number": "float64",
+      "syn_flag_number": "float64",
+      "rst_flag_number": "float64",
+      "psh_flag_number": "float64",
+      "ack_flag_number": "float64",
+      "ece_flag_number": "float64",
+      "cwr_flag_number": "float64",
+      "ack_count": "int64",
+      "syn_count": "int64",
+      "fin_count": "int64",
+      "rst_count": "int64",
+      "HTTP": "float64",
+      "HTTPS": "float64",
+      "DNS": "float64",
+      "Telnet": "float64",
+      "SMTP": "float64",
+      "SSH": "float64",
+      "IRC": "float64",
+      "TCP": "float64",
+      "UDP": "float64",
+      "DHCP": "float64",
+      "ARP": "float64",
+      "ICMP": "float64",
+      "IGMP": "float64",
+      "IPv": "float64",
+      "LLC": "float64",
+      "Tot sum": "int64",
+      "Min": "int64",
+      "Max": "int64",
+      "AVG": "float64",
+      "Std": "float64",
+      "Tot size": "float64",
+      "IAT": "float64",
+      "Number": "int64",
+      "Variance": "float64"
+    },
+    "numeric_columns": [
+      "Header_Length",
+      "Protocol Type",
+      "Time_To_Live",
+      "Rate",
+      "fin_flag_number",
+      "syn_flag_number",
+      "rst_flag_number",
+      "psh_flag_number",
+      "ack_flag_number",
+      "ece_flag_number",
+      "cwr_flag_number",
+      "ack_count",
+      "syn_count",
+      "fin_count",
+      "rst_count",
+      "HTTP",
+      "HTTPS",
+      "DNS",
+      "Telnet",
+      "SMTP",
+      "SSH",
+      "IRC",
+      "TCP",
+      "UDP",
+      "DHCP",
+      "ARP",
+      "ICMP",
+      "IGMP",
+      "IPv",
+      "LLC",
+      "Tot sum",
+      "Min",
+      "Max",
+      "AVG",
+      "Std",
+      "Tot size",
+      "IAT",
+      "Number",
+      "Variance"
+    ],
+    "non_numeric_columns": [],
+    "constant_columns": [],
+    "columns_with_nan": [
+      "fin_flag_number",
+      "syn_flag_number",
+      "rst_flag_number",
+      "psh_flag_number",
+      "ack_flag_number",
+      "ece_flag_number",
+      "cwr_flag_number",
+      "ack_count",
+      "syn_count",
+      "fin_count",
+      "rst_count",
+      "HTTP",
+      "HTTPS",
+      "DNS",
+      "Telnet",
+      "SMTP",
+      "SSH",
+      "IRC",
+      "TCP",
+      "UDP",
+      "DHCP",
+      "ARP",
+      "ICMP",
+      "IGMP",
+      "IPv",
+      "LLC",
+      "Tot sum",
+      "Min",
+      "Max",
+      "AVG",
+      "Std",
+      "Tot size",
+      "IAT",
+      "Number",
+      "Variance"
+    ],
+    "columns_with_inf": []
+  },
+  "phase5_label_investigation": {
+    "candidate_columns": [],
+    "label_status": "Explicit label column not established."
+  },
+  "phase7_duplicates": {
+    "total_rows_inspected": 46776700,
+    "within_file_duplicate_rows": 13711895,
+    "duplicate_percentage": 29.3135,
+    "category_duplicate_rates": {
+      "Backdoor_Malware": 0.09322560596643878,
+      "Benign_Final": 0.1553463832794113,
+      "BrowserHijacking": 1.2118108892302442,
+      "CommandInjection": 0.3882418191902385,
+      "DDoS-ACK_Fragmentation": 0.05016223800754188,
+      "DDoS-HTTP_Flood": 0.0,
+      "DDoS-ICMP_Flood": 37.88278065651265,
+      "DDoS-ICMP_Fragmentation": 0.03403390130168623,
+      "DDoS-PSHACK_FLOOD": 30.32134634113938,
+      "DDoS-RSTFINFLOOD": 37.60872859449249,
+      "DDoS-SYN_Flood": 29.64478777605028,
+      "DDoS-SlowLoris": 0.0,
+      "DDoS-SynonymousIP_Flood": 36.04044097313802,
+      "DDoS-TCP_Flood": 37.55393095370492,
+      "DDoS-UDP_Flood": 33.83992664023394,
+      "DDoS-UDP_Fragmentation": 0.0571577938485667,
+      "DNS_Spoofing": 2.3264653601493586,
+      "DictionaryBruteForce": 0.015309246785058175,
+      "DoS-HTTP_Flood": 0.45921988282935117,
+      "DoS-SYN_Flood": 23.7146324296296,
+      "DoS-TCP_Flood": 35.04014703735452,
+      "DoS-UDP_Flood": 23.809588892652865,
+      "MITM-ArpSpoofing": 7.802380023410066,
+      "Mirai-greeth_flood": 0.4093426924263536,
+      "Mirai-greip_flood": 0.3078576883266857,
+      "Mirai-udpplain": 1.0082261552661542,
+      "Recon-HostDiscovery": 0.6005447320245874,
+      "Recon-OSScan": 1.787113648622518,
+      "Recon-PingSweep": 0.0,
+      "Recon-PortScan": 2.4792183170482716,
+      "SqlInjection": 0.0,
+      "Uploading_Attack": 0.0,
+      "VulnerabilityScan": 0.2517737999898219,
+      "XSS": 0.0
+    }
+  },
+  "phase8_leakage_risks": [
+    {
+      "risk_type": "Class & Row Imbalance",
+      "evidence": "File count ranges from 1 file (e.g., Backdoor_Malware, BrowserHijacking) to 29 files (Mirai-greeth_flood). Row counts range from ~3,218 rows to >2,000,000 rows across categories.",
+      "assessment": "POTENTIAL RISK (Requires sampling stratification to prevent model bias)."
+    },
+    {
+      "risk_type": "Directory / Filename Label Encoding",
+      "evidence": "Target class names are encoded exclusively in folder and file paths (e.g. Benign_Final, DDoS-HTTP_Flood).",
+      "assessment": "ESTABLISHED (Loader must extract labels from parent directories, not feature vectors)."
+    },
+    {
+      "risk_type": "Constant / Low-Variance Feature Columns",
+      "evidence": "0 column(s) identified with potential low variance or constant values in samples: []",
+      "assessment": "POTENTIAL RISK (May cause zero-variance issues during scaling)."
+    }
+  ],
+  "phase9_feature_mapping": [
+    {
+      "project_feature": "Header_Length",
+      "possible_dataset_column": "Header_Length",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Protocol Type",
+      "possible_dataset_column": "Protocol Type",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Time_To_Live",
+      "possible_dataset_column": "Time_To_Live",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Rate",
+      "possible_dataset_column": "Rate",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "psh_flag_number",
+      "possible_dataset_column": "psh_flag_number",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "ack_flag_number",
+      "possible_dataset_column": "ack_flag_number",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "ack_count",
+      "possible_dataset_column": "ack_count",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "syn_count",
+      "possible_dataset_column": "syn_count",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "fin_count",
+      "possible_dataset_column": "fin_count",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "rst_count",
+      "possible_dataset_column": "rst_count",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "HTTP",
+      "possible_dataset_column": "HTTP",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "HTTPS",
+      "possible_dataset_column": "HTTPS",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "DNS",
+      "possible_dataset_column": "DNS",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "SSH",
+      "possible_dataset_column": "SSH",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "TCP",
+      "possible_dataset_column": "TCP",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "UDP",
+      "possible_dataset_column": "UDP",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "ICMP",
+      "possible_dataset_column": "ICMP",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "LLC",
+      "possible_dataset_column": "LLC",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Tot sum",
+      "possible_dataset_column": "Tot sum",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Min",
+      "possible_dataset_column": "Min",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Max",
+      "possible_dataset_column": "Max",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Std",
+      "possible_dataset_column": "Std",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Tot size",
+      "possible_dataset_column": "Tot size",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "IAT",
+      "possible_dataset_column": "IAT",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "Number",
+      "possible_dataset_column": "Number",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "DHCP",
+      "possible_dataset_column": "DHCP",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "ece_flag_number",
+      "possible_dataset_column": "ece_flag_number",
+      "derivable_directly": true,
+      "derivable_indirectly": false,
+      "unavailable": false,
+      "notes": "Direct identity string match in CICIoT2023 39-column schema."
+    },
+    {
+      "project_feature": "src_ip",
+      "possible_dataset_column": "ABSENT",
+      "derivable_directly": false,
+      "derivable_indirectly": false,
+      "unavailable": true,
+      "notes": "L3 source IP address stripped for privacy."
+    },
+    {
+      "project_feature": "dst_ip",
+      "possible_dataset_column": "ABSENT",
+      "derivable_directly": false,
+      "derivable_indirectly": false,
+      "unavailable": true,
+      "notes": "L3 destination IP address stripped for privacy."
+    },
+    {
+      "project_feature": "src_port",
+      "possible_dataset_column": "ABSENT",
+      "derivable_directly": false,
+      "derivable_indirectly": false,
+      "unavailable": true,
+      "notes": "Transport source port omitted from summary CSV."
+    },
+    {
+      "project_feature": "dst_port",
+      "possible_dataset_column": "ABSENT",
+      "derivable_directly": false,
+      "derivable_indirectly": false,
+      "unavailable": true,
+      "notes": "Transport destination port omitted from summary CSV."
+    },
+    {
+      "project_feature": "timestamp",
+      "possible_dataset_column": "ABSENT",
+      "derivable_directly": false,
+      "derivable_indirectly": false,
+      "unavailable": true,
+      "notes": "Raw packet timestamp omitted; time represented by IAT."
+    },
+    {
+      "project_feature": "flow_id",
+      "possible_dataset_column": "ABSENT",
+      "derivable_directly": false,
+      "derivable_indirectly": false,
+      "unavailable": true,
+      "notes": "Flow tuple identifier omitted from CSV header."
+    }
+  ]
+}
