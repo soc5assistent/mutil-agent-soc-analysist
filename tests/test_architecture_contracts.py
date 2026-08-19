@@ -2,7 +2,7 @@
 
 Enforces strict separation of concerns, agent input/output schema definitions,
 provenance non-leakage constraints, dataset boundary mappings, versioning separation,
-and non-ownership declarations across all system documents.
+all 15 protocol flags, and non-ownership declarations across all system documents.
 """
 
 from pathlib import Path
@@ -91,6 +91,33 @@ def test_security_event_contract_specifies_categories_and_provenance():
     assert "Agent 1 Non-Ownership Declarations" in content or "DOES NOT own" in content, (
         "SecurityEvent contract missing Agent 1 non-ownership section"
     )
+
+
+def test_security_event_all_15_protocol_flags_documented():
+    """Verifies that security_event.md explicitly documents all 15 protocol flag fields matching ciciot2023_feature_mapping.md."""
+    doc_path = PROJECT_ROOT / "docs" / "contracts" / "security_event.md"
+    assert doc_path.exists(), "security_event.md missing"
+    content = doc_path.read_text(encoding="utf-8")
+
+    all_15_flags = [
+        "proto_http_flag",
+        "proto_https_flag",
+        "proto_dns_flag",
+        "proto_telnet_flag",
+        "proto_smtp_flag",
+        "proto_ssh_flag",
+        "proto_irc_flag",
+        "proto_tcp_flag",
+        "proto_udp_flag",
+        "proto_dhcp_flag",
+        "proto_arp_flag",
+        "proto_icmp_flag",
+        "proto_igmp_flag",
+        "proto_ipv_flag",
+        "proto_llc_flag",
+    ]
+    for flag in all_15_flags:
+        assert flag in content, f"SecurityEvent contract missing protocol flag field: {flag}"
 
 
 def test_security_event_represents_flow_statistics_and_synthetic_timestamp_rules():

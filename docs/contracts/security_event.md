@@ -40,9 +40,9 @@ The `SecurityEvent` payload represents a normalized, structured telemetry record
 | `time_to_live` | `float` | Optional | Network | IP Time-To-Live (TTL) value. | IP Header | Agent 3 Feature Engineering |
 | `header_length` | `float` | Optional | Network | Total header length in bytes. | Packet Header | Agent 3 Feature Engineering |
 
-### 2.3 Typed Flow Statistics (Option A Architecture Extension)
+### 2.3 Typed Flow Statistics & Protocol Flags (Option A Architecture Extension)
 
-To natively support dataset flow summaries (CICIoT2023, NetFlow, IPFIX) without relying on unstructured `custom_attributes`, `SecurityEvent` includes explicit typed flow statistics:
+To natively support dataset flow summaries (CICIoT2023, NetFlow, IPFIX) without relying on unstructured `custom_attributes`, `SecurityEvent` includes explicit typed flow statistics and all 15 protocol flags:
 
 | Field Name | Type | Req/Opt | Category | Meaning | Source | Downstream Consumer |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -68,8 +68,18 @@ To natively support dataset flow summaries (CICIoT2023, NetFlow, IPFIX) without 
 | `proto_http_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for HTTP protocol. | Application Filter / `HTTP` | Agent 2, Agent 3 |
 | `proto_https_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for HTTPS protocol. | Application Filter / `HTTPS` | Agent 2, Agent 3 |
 | `proto_dns_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for DNS protocol. | Application Filter / `DNS` | Agent 2, Agent 3 |
+| `proto_telnet_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for Telnet protocol. | Application Filter / `Telnet` | Agent 2, Agent 3 |
+| `proto_smtp_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for SMTP protocol. | Application Filter / `SMTP` | Agent 2, Agent 3 |
 | `proto_ssh_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for SSH protocol. | Application Filter / `SSH` | Agent 2, Agent 3 |
+| `proto_irc_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for IRC protocol. | Application Filter / `IRC` | Agent 2, Agent 3 |
+| `proto_tcp_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for TCP protocol. | Header Filter / `TCP` | Agent 2, Agent 3 |
+| `proto_udp_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for UDP protocol. | Header Filter / `UDP` | Agent 2, Agent 3 |
 | `proto_dhcp_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for DHCP protocol. | Application Filter / `DHCP` | Agent 2, Agent 3 |
+| `proto_arp_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for ARP protocol. | Layer 2 Filter / `ARP` | Agent 2, Agent 3 |
+| `proto_icmp_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for ICMP protocol. | Header Filter / `ICMP` | Agent 2, Agent 3 |
+| `proto_igmp_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for IGMP protocol. | Header Filter / `IGMP` | Agent 2, Agent 3 |
+| `proto_ipv_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for IP version. | Layer 3 Filter / `IPv` | Agent 2, Agent 3 |
+| `proto_llc_flag` | `float` | Optional | Protocol Flag | Binary/numeric indicator for LLC protocol. | Layer 2 Filter / `LLC` | Agent 2, Agent 3 |
 
 ### 2.4 Endpoint Fields & Metadata
 
