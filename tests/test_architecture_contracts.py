@@ -2,7 +2,7 @@
 
 Enforces strict separation of concerns, agent input/output schema definitions,
 provenance non-leakage constraints, dataset boundary mappings, versioning separation,
-all 15 protocol flags, and non-ownership declarations across all system documents.
+all 15 protocol flags, live telemetry compatibility, and non-ownership declarations across all system documents.
 """
 
 from pathlib import Path
@@ -18,6 +18,7 @@ def test_required_architecture_documents_exist():
         PROJECT_ROOT / ".gitignore",
         PROJECT_ROOT / "requirements.txt",
         PROJECT_ROOT / "docs" / "architecture" / "system_architecture.md",
+        PROJECT_ROOT / "docs" / "architecture" / "live_telemetry_compatibility.md",
         PROJECT_ROOT / "docs" / "contracts" / "security_event.md",
         PROJECT_ROOT / "docs" / "contracts" / "signature_evidence.md",
         PROJECT_ROOT / "docs" / "contracts" / "feature_vector.md",
@@ -118,6 +119,18 @@ def test_security_event_all_15_protocol_flags_documented():
     ]
     for flag in all_15_flags:
         assert flag in content, f"SecurityEvent contract missing protocol flag field: {flag}"
+
+
+def test_live_telemetry_compatibility_document():
+    """Verifies live_telemetry_compatibility.md documents classifications for all flow statistic fields."""
+    doc_path = PROJECT_ROOT / "docs" / "architecture" / "live_telemetry_compatibility.md"
+    assert doc_path.exists(), "live_telemetry_compatibility.md missing"
+    content = doc_path.read_text(encoding="utf-8")
+
+    assert "Classification Definitions" in content
+    assert "Requires Additional Aggregation" in content or "Requires State" in content
+    assert "NOT ESTABLISHED" in content
+    assert "flow_rate" in content and "mean_iat_ms" in content and "tot_size" in content
 
 
 def test_security_event_represents_flow_statistics_and_synthetic_timestamp_rules():
