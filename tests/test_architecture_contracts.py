@@ -1,7 +1,8 @@
 """Architecture contract & documentation validation tests.
 
 Enforces strict separation of concerns, agent input/output schema definitions,
-provenance non-leakage constraints, and non-ownership declarations across all system documents.
+provenance non-leakage constraints, dataset boundary mappings, versioning separation,
+and non-ownership declarations across all system documents.
 """
 
 from pathlib import Path
@@ -22,6 +23,8 @@ def test_required_architecture_documents_exist():
         PROJECT_ROOT / "docs" / "contracts" / "feature_vector.md",
         PROJECT_ROOT / "docs" / "contracts" / "anomaly_result.md",
         PROJECT_ROOT / "docs" / "contracts" / "final_threat_assessment.md",
+        PROJECT_ROOT / "docs" / "datasets" / "ciciot2023_feature_mapping.md",
+        PROJECT_ROOT / "docs" / "datasets" / "training_methodology.md",
         PROJECT_ROOT / "docs" / "agents" / "agent3_design.md",
         PROJECT_ROOT / "docs" / "agents" / "agent4_design.md",
         PROJECT_ROOT / "docs" / "datasets" / "ciciot2023_methodology.md",
@@ -90,57 +93,81 @@ def test_security_event_contract_specifies_categories_and_provenance():
     )
 
 
-def test_signature_evidence_contract_boundaries():
-    """Verifies signature_evidence.md defines inputs, outputs, and non-ownership rules for Agent 2."""
-    doc_path = PROJECT_ROOT / "docs" / "contracts" / "signature_evidence.md"
-    assert doc_path.exists(), "signature_evidence.md missing"
+def test_security_event_represents_flow_statistics_and_synthetic_timestamp_rules():
+    """Verifies SecurityEvent represents flow statistics natively and documents synthetic timestamp rules."""
+    doc_path = PROJECT_ROOT / "docs" / "contracts" / "security_event.md"
+    assert doc_path.exists(), "security_event.md missing"
     content = doc_path.read_text(encoding="utf-8")
 
-    assert "Agent 2" in content and "Signature Engine" in content
-    assert "Agent 5" in content
-    assert "SignatureEvidence" in content
-    assert "DOES NOT own" in content or "Non-Ownership" in content
-    assert "anomaly" in content.lower(), "SignatureEvidence contract must mention anomaly detection non-ownership"
+    # Flow stats fields
+    flow_fields = ["flow_rate", "mean_iat_ms", "tot_size", "tot_sum", "min_packet_size", "max_packet_size", "avg_packet_size"]
+    for field in flow_fields:
+        assert field in content, f"SecurityEvent contract missing typed flow field: {field}"
+
+    # Synthetic timestamp field and rule
+    assert "is_synthetic_timestamp" in content, "SecurityEvent contract missing is_synthetic_timestamp field"
+    assert "MUST NOT" in content and "synthetic" in content.lower(), "Synthetic timestamp feature restriction missing"
+
+    # Custom attributes workaround prohibition
+    assert "undocumented workaround" in content.lower() or "custom_attributes MUST NOT" in content, (
+        "SecurityEvent contract must prohibit custom_attributes workaround"
+    )
 
 
-def test_feature_vector_contract_boundaries():
-    """Verifies feature_vector.md defines inputs, outputs, non-NaN constraints, and non-ownership rules for Agent 3."""
+def test_feature_vector_contract_versioning_and_metadata_isolation():
+    """Verifies feature_vector.md enforces separate feature_pipeline_version, scaling_version, and metadata exclusion."""
     doc_path = PROJECT_ROOT / "docs" / "contracts" / "feature_vector.md"
     assert doc_path.exists(), "feature_vector.md missing"
     content = doc_path.read_text(encoding="utf-8")
 
-    assert "Agent 3" in content and "Feature Engineering" in content
-    assert "Agent 4" in content
-    assert "FeatureVector" in content
-    assert "non-NaN" in content or "NaN" in content
-    assert "provenance" in content.lower(), "FeatureVector contract must reference provenance exclusion"
-    assert "DOES NOT own" in content or "Non-Ownership" in content
+    assert "feature_pipeline_version" in content, "feature_pipeline_version missing from FeatureVector contract"
+    assert "scaling_version" in content, "scaling_version missing from FeatureVector contract"
+    assert "feature_names" in content, "feature_names missing from FeatureVector contract"
+
+    # Prohibited metadata leak check
+    prohibited = ["source_file", "category", "attack_label", "dataset_name", "folder_name"]
+    for item in prohibited:
+        assert item in content, f"FeatureVector contract must explicitly list prohibited metadata item: {item}"
+
+    assert "MUST NOT" in content and "ML numerical features" in content or "converted into ML" in content, (
+        "FeatureVector contract must state metadata MUST NOT become ML features"
+    )
 
 
-def test_anomaly_result_contract_boundaries():
-    """Verifies anomaly_result.md defines inputs, outputs, calibrated confidence, and non-ownership rules for Agent 4."""
+def test_anomaly_result_contract_optional_confidence():
+    """Verifies anomaly_result.md requires anomaly_score and marks calibrated_confidence as optional until empirically calibrated."""
     doc_path = PROJECT_ROOT / "docs" / "contracts" / "anomaly_result.md"
     assert doc_path.exists(), "anomaly_result.md missing"
     content = doc_path.read_text(encoding="utf-8")
 
-    assert "Agent 4" in content and "Anomaly Detection" in content
-    assert "Agent 5" in content
-    assert "AnomalyResult" in content
-    assert "calibrated_confidence" in content
-    assert "DOES NOT own" in content or "Non-Ownership" in content
+    assert "anomaly_score" in content and "Required" in content, "anomaly_score must be Required"
+    assert "is_anomaly" in content and "Required" in content, "is_anomaly must be Required"
+    assert "calibrated_confidence" in content and "Optional" in content, "calibrated_confidence must be Optional"
+    assert "Sigmoid" in content or "sigmoid" in content, "Contract must reference arbitrary sigmoid prohibition"
 
 
-def test_final_threat_assessment_contract_boundaries():
-    """Verifies final_threat_assessment.md defines inputs, outputs, decision fusion, and non-ownership rules for Agent 5."""
-    doc_path = PROJECT_ROOT / "docs" / "contracts" / "final_threat_assessment.md"
-    assert doc_path.exists(), "final_threat_assessment.md missing"
+def test_ciciot2023_feature_mapping_completeness():
+    """Verifies ciciot2023_feature_mapping.md maps all 39 columns and specifies Dataset Adapter dataflow."""
+    doc_path = PROJECT_ROOT / "docs" / "datasets" / "ciciot2023_feature_mapping.md"
+    assert doc_path.exists(), "ciciot2023_feature_mapping.md missing"
     content = doc_path.read_text(encoding="utf-8")
 
-    assert "Agent 5" in content and "Decision" in content
-    assert "FinalThreatAssessment" in content
-    assert "overall_threat_level" in content
-    assert "action_recommended" in content
-    assert "DOES NOT own" in content or "Non-Ownership" in content
+    assert "Dataset Adapter" in content, "Feature mapping missing Dataset Adapter dataflow"
+    assert "39" in content, "Feature mapping must reference 39 columns"
+    assert "Header_Length" in content and "Protocol Type" in content and "Variance" in content, "Missing raw columns in mapping table"
+
+
+def test_training_methodology_specifies_duplicate_and_split_rules():
+    """Verifies training_methodology.md documents verified empirical stats and file-level splitting rules."""
+    doc_path = PROJECT_ROOT / "docs" / "datasets" / "training_methodology.md"
+    assert doc_path.exists(), "training_methodology.md missing"
+    content = doc_path.read_text(encoding="utf-8")
+
+    assert "46,776,700" in content, "Empirical row count missing"
+    assert "13,711,895" in content, "Empirical duplicate count missing"
+    assert "29.3135%" in content, "Empirical duplicate rate missing"
+    assert "file level" in content.lower() or "file-level" in content.lower(), "File-level splitting requirement missing"
+    assert "STRICTLY PROHIBITED" in content, "Row-level random splitting prohibition missing"
 
 
 def test_gitignore_contains_dataset_and_cache_protections():
